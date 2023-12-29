@@ -43,8 +43,6 @@ jobs:
         sudo chown -R runner.runner /builder
         echo WORKDIR="/builder" >> "$GITHUB_ENV"
 
-        export ENABLE_BPF=y
-
     - name: Free disk space
       run: |
         sudo rm -rf /etc/apt/sources.list.d
@@ -79,6 +77,8 @@ jobs:
       id: compile
       continue-on-error: true
       run: |
+        export ENABLE_BPF=y
+        
         export GITHUB_REPO=${{ github.repository }}
         BUILD_FAST=y ENABLE_BPF=y bash <(curl -sS https://raw.githubusercontent.com/${{ github.repository }}/master/openwrt/build.sh) ${{ matrix.tag.type }} ${{ matrix.model }}
         cd openwrt
