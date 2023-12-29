@@ -43,6 +43,8 @@ jobs:
         sudo chown -R runner.runner /builder
         echo WORKDIR="/builder" >> "$GITHUB_ENV"
 
+        export ENABLE_BPF=y
+
     - name: Free disk space
       run: |
         sudo rm -rf /etc/apt/sources.list.d
